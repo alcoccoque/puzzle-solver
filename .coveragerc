@@ -1,0 +1,4 @@
+[run]
+omit =
+    app/client.py
+    app/db/database.py
