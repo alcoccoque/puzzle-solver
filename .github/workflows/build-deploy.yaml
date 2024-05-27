@@ -47,11 +47,11 @@ jobs:
       - name: Install Dependencies
         run: make install
       - name: Lint black
-        run: make lint-black
+        run: make lint_black
       - name: Lint isort
-        run: make lint-isort
+        run: make lint_isort
       - name: Lint isort
-        run: make lint-pylint
+        run: make lint_pylint
       - name: Run Tests
         run: make tests
       - name: Test coverage artifacts
