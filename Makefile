@@ -7,6 +7,18 @@ install:
 venv:
 	$(PYTHON) -m venv $(VENV_DIR)
 
+.PHONY: lint_black
+create_db:
+	black .
+
+.PHONY: lint_isort
+create_db:
+	isort .
+
+.PHONY: lint_pylint
+create_db:
+	pylint ./app
+
 .PHONY: create_db
 create_db:
 	alembic upgrade head
