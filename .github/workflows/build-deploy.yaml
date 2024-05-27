@@ -45,7 +45,7 @@ jobs:
         run: make lint_pylint
       - name: Check PostgreSQL Connection
         env:
-          POSTGRES_URL: postgresql+asyncpg://postgres_user:postgres_password@test-postgres:5432/prod_db
+          POSTGRES_URL: postgresql+asyncpg://postgres_user:postgres_password@localhost:5432/prod_db
         run: |
           python check_db.py $POSTGRES_URL
       - name: Run Tests
