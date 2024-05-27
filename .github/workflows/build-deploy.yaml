@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     services:
       test-postgres:
-        image: postgres
+        image: postgres:latest
         env:
-          POSTGRES_USER: ${{ vars.DBUSER }}
-          POSTGRES_PASSWORD: ${{ vars.DBPASSWORD }}
-          POSTGRES_DB: ${{ vars.DBNAME }}
+          POSTGRES_USER: postgres_user
+          POSTGRES_PASSWORD: postgres_password
+          POSTGRES_DB: prod_db
         ports:
           - 5432:5432
         options: >-

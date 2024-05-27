@@ -9,9 +9,6 @@ import sys
 
 async def check_connection(database_url):
     try:
-        print("DBURL", database_url)
-        print("DBURL", database_url[:25])
-        print("DBURL", database_url[25:])
         engine = create_async_engine(database_url, echo=True)
         async_session_maker = async_sessionmaker(
             engine, expire_on_commit=False, class_=AsyncSession
