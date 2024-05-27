@@ -10,8 +10,8 @@ import sys
 async def check_connection(database_url):
     try:
         print("DBURL", database_url)
-        print("DBURL", database_url[:15])
-        print("DBURL", database_url[15:])
+        print("DBURL", database_url[:25])
+        print("DBURL", database_url[25:])
         engine = create_async_engine(database_url, echo=True)
         async_session_maker = async_sessionmaker(
             engine, expire_on_commit=False, class_=AsyncSession
@@ -28,10 +28,6 @@ async def check_connection(database_url):
         sys.exit(1)
 
 if __name__ == "__main__":
-    postgres_user = sys.argv[1]
-    postgres_password = sys.argv[2]
-    postgres_host = sys.argv[3]
-    postgres_port = sys.argv[4]
-    postgres_db = sys.argv[5]
-    database_url = f"postgresql+asyncpg://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
+    database_url = sys.argv[1]
+    database_url = f"postgresql+asyncpg://{postgres_user}:{postgres_password}@test-{postgres_host}:{postgres_port}/{postgres_db}"
     asyncio.run(check_connection(database_url))

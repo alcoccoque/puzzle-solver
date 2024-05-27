@@ -47,7 +47,7 @@ class TestDBSettings:
     DB_PORT: str = os.getenv("POSTGRES_PORT", "5432")
     DB_NAME: str = os.getenv("POSTGRES_DB")
     DATABASE_URL: str = (
-        f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@test-{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
 
 
