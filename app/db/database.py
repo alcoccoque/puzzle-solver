@@ -7,10 +7,11 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from app.config import prod_db_settings
 
 print("TEST")
-print(prod_db_settings.DATABASE_URL)
 print("POSTGRES_USER=", os.getenv("POSTGRES_USER"))
-print("POSTGRES_PORT=", os.getenv("POSTGRES_PORT"))
 print("POSTGRES_PASSWORD=", os.getenv("POSTGRES_PASSWORD"))
+print("POSTGRES_DB=", os.getenv("POSTGRES_DB"))
+print("POSTGRES_PORT=", os.getenv("POSTGRES_PORT"))
+print("POSTGRES_HOST=", os.getenv("POSTGRES_HOST"))
 engine = create_async_engine(prod_db_settings.DATABASE_URL)
 async_session_maker = async_sessionmaker(
     engine, expire_on_commit=False, class_=AsyncSession
