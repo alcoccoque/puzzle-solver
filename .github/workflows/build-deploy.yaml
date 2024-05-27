@@ -13,9 +13,9 @@ jobs:
       test-postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: postgres_user
-          POSTGRES_PASSWORD: postgres_password
-          POSTGRES_DB: prod_db
+          POSTGRES_USER: ${{ vars.DBUSER }}
+          POSTGRES_PASSWORD: ${{ secrets.DBPASSWORD }}
+          POSTGRES_DB: ${{ vars.DBNAME }}
         ports:
           - 5432:5432
         options: >-
@@ -43,16 +43,11 @@ jobs:
         run: make lint_isort
       - name: Lint isort
         run: make lint_pylint
-      - name: Check PostgreSQL Connection
-        env:
-          POSTGRES_URL: postgresql+asyncpg://postgres_user:postgres_password@localhost:5432/prod_db
-        run: |
-          python check_db.py $POSTGRES_URL
       - name: Run Tests
         run: make tests
         env:
           POSTGRES_USER: ${{ vars.DBUSER }}
-          POSTGRES_PASSWORD: ${{ vars.DBPASSWORD }}
+          POSTGRES_PASSWORD: ${{ secrets.DBPASSWORD }}
           POSTGRES_HOST: ${{ vars.DBHOST }}
           POSTGRES_PORT: ${{ vars.DBPORT }}
           POSTGRES_DB: ${{ vars.DBNAME }}
