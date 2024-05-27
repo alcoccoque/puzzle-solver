@@ -33,5 +33,5 @@ if __name__ == "__main__":
     postgres_host = sys.argv[3]
     postgres_port = sys.argv[4]
     postgres_db = sys.argv[5]
-    database_url = f"postgresql+asyncpg://{postgres_user}:{postgres_password}@test-{postgres_host}:{postgres_port}/{postgres_db}"
+    database_url = f"postgresql+asyncpg://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
     asyncio.run(check_connection(database_url))
