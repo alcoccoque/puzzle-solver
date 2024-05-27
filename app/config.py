@@ -6,10 +6,11 @@ import os
 from dotenv import load_dotenv
 
 # Specify the path to the .env file
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+# dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
 
 # Load the environment variables from the .env file
-load_dotenv(dotenv_path)
+# load_dotenv(dotenv_path)
+load_dotenv()
 
 # Settings of project information.
 project_settings = {
@@ -43,11 +44,11 @@ class JWTTokenSettings:
 class TestDBSettings:
     """Configuration file for the FastAPI application."""
 
-    DB_USER: str = "test-user"
-    DB_PASSWORD: str = "password"
-    DB_HOST: str = "localhost"
-    DB_PORT: str = "5432"
-    DB_NAME: str = "test_db"
+    DB_USER: str = os.getenv("POSTGRES_USER")
+    DB_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
+    DB_HOST: str = os.getenv("POSTGRES_HOST")
+    DB_PORT: str = os.getenv("POSTGRES_PORT", "5432")
+    DB_NAME: str = os.getenv("POSTGRES_DB")
     DATABASE_URL: str = (
         f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
