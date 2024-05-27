@@ -1,13 +1,24 @@
 # check_postgres_connection.py
 import asyncio
-import asyncpg
+from typing import AsyncGenerator
+
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 import sys
+
 
 async def check_connection(database_url):
     try:
-        conn = await asyncpg.connect(database_url)
-        await conn.close()
-        print("Connection successful")
+        engine = create_async_engine(database_url, echo=True)
+        async_session_maker = async_sessionmaker(
+            engine, expire_on_commit=False, class_=AsyncSession
+        )
+
+        async with async_session_maker() as session:
+            async with session.begin():
+                # Perform a simple query to test the connection
+                result = await session.execute("SELECT 1")
+                print("Connection successful")
+
     except Exception as e:
         print(f"Connection failed: {e}")
         sys.exit(1)
