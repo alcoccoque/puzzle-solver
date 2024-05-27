@@ -14,7 +14,7 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: ${{ vars.DBUSER }}
-          POSTGRES_PASSWORD: ${{ secrets.DBPASSWORD }}
+          POSTGRES_PASSWORD: ${{ vars.DBPASSWORD }}
           POSTGRES_DB: ${{ vars.DBNAME }}
         ports:
           - 5432:5432
@@ -47,7 +47,7 @@ jobs:
         run: make tests
         env:
           POSTGRES_USER: ${{ vars.DBUSER }}
-          POSTGRES_PASSWORD: ${{ secrets.DBPASSWORD }}
+          POSTGRES_PASSWORD: ${{ vars.DBPASSWORD }}
           POSTGRES_HOST: ${{ vars.DBHOST }}
           POSTGRES_PORT: ${{ vars.DBPORT }}
           POSTGRES_DB: ${{ vars.DBNAME }}
