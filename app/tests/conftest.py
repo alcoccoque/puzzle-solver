@@ -1,6 +1,7 @@
 """Conftest module."""
 
 import asyncio
+import os
 from typing import AsyncGenerator
 
 import pytest
@@ -8,16 +9,22 @@ import pytest_asyncio
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.config import test_db_settings
-from app.db import get_async_session
 from app.main import app
 from app.models.base_class import Base, metadata
 
-engine_test = create_async_engine(test_db_settings.DATABASE_URL)
-async_session = async_sessionmaker(
-    engine_test, expire_on_commit=False, class_=AsyncSession
-)
-metadata.bind = engine_test
+
+def db_setup():
+    os.environ["ENV"] = "test"
+    from app.config import db_settings
+    engine_test = create_async_engine(db_settings.DATABASE_URL)
+    async_session = async_sessionmaker(
+        engine_test, expire_on_commit=False, class_=AsyncSession
+    )
+    metadata.bind = engine_test
+    return async_session, engine_test
+
+
+async_session, engine_test = db_setup()
 
 
 async def override_get_async_session() -> AsyncGenerator[AsyncSession, None]:
@@ -26,6 +33,7 @@ async def override_get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
+from app.db import get_async_session
 app.dependency_overrides[get_async_session] = override_get_async_session
 
 

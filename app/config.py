@@ -5,7 +5,14 @@ import os
 
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+ENV = os.getenv('ENV', 'prod')
+
+# Set the path to the appropriate .env file
+if ENV == 'test':
+    dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env.test")
+else:
+    dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+
 load_dotenv(dotenv_path)
 
 # Settings of project information.
@@ -16,7 +23,7 @@ project_settings = {
 }
 
 
-class ProdDBSettings:
+class DBSettings:
     """Settings for the production database."""
 
     DB_USER: str = os.getenv("POSTGRES_USER")
@@ -37,19 +44,5 @@ class JWTTokenSettings:
     ALGORITHM: str = os.getenv("ALGORITHM")
 
 
-class TestDBSettings:
-    """Configuration file for the FastAPI application."""
-
-    DB_USER: str = os.getenv("POSTGRES_USER")
-    DB_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
-    DB_HOST: str = os.getenv("POSTGRES_HOST")
-    DB_PORT: str = os.getenv("POSTGRES_PORT", "5432")
-    DB_NAME: str = os.getenv("POSTGRES_DB")
-    DATABASE_URL: str = (
-        f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}_test"
-    )
-
-
-prod_db_settings = ProdDBSettings()
+db_settings = DBSettings()
 jwt_token_settings = JWTTokenSettings()
-test_db_settings = TestDBSettings()
