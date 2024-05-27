@@ -25,6 +25,6 @@ create_db:
 
 .PHONY: tests
 tests:
-	$(PYTHON) -m pytest --cov-config=.coveragerc -p pytest_cov --cov=app --cov-append --cov-report=html app/tests/
+	$(PYTHON) -m pytest -s --cov-config=.coveragerc -p pytest_cov --cov=app --cov-append --cov-report=html app/tests/
 
 
