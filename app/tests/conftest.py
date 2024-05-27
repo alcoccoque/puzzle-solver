@@ -9,7 +9,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config import test_db_settings
-from app.db.database import get_async_session
+from app.db import get_async_session
 from app.main import app
 from app.models.base_class import Base, metadata
 
