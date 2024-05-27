@@ -43,6 +43,15 @@ jobs:
         run: make lint_isort
       - name: Lint isort
         run: make lint_pylint
+      - name: Check PostgreSQL Connection
+        env:
+          POSTGRES_USER: ${{ vars.DBUSER }}
+          POSTGRES_PASSWORD: ${{ vars.DBPASSWORD }}
+          POSTGRES_HOST: ${{ vars.DBHOST }}
+          POSTGRES_PORT: ${{ vars.DBPORT }}
+          POSTGRES_DB: ${{ vars.DBNAME }}
+        run: |
+          python check_db.py $POSTGRES_USER $POSTGRES_PASSWORD $POSTGRES_HOST $POSTGRES_PORT $POSTGRES_DB
       - name: Run Tests
         run: make tests
         env:
