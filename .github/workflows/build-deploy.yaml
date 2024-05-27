@@ -51,8 +51,8 @@ jobs:
         run: make lint_isort
       - name: Lint isort
         run: make lint_pylint
-      - run: echo POSTGRES_USER
-      - run: echo POSTGRES_DB
+      - run: echo $POSTGRES_USER
+      - run: echo $POSTGRES_PASSWORD
       - name: Run Tests
         run: make tests
         env:
