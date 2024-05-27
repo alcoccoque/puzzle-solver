@@ -47,7 +47,7 @@ jobs:
         env:
           POSTGRES_URL: postgresql+asyncpg://postgres_user:postgres_password@test-podtgres:5432/prod_db
         run: |
-          python check_db.py POSTGRES_URL
+          python check_db.py $POSTGRES_URL
       - name: Run Tests
         run: make tests
         env:
