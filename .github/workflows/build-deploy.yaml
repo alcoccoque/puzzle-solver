@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      test-postgres:
         image: postgres
         env:
           POSTGRES_USER: ${{ vars.DBUSER }}
