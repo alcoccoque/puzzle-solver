@@ -8,6 +8,14 @@ on:
 
 jobs:
   build:
+    env:
+      POSTGRES_USER: ${{ secrets.DATABASE_USERNAME }}
+      POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      POSTGRES_HOST: ${{ secrets.DATABASE_HOSTNAME }}
+      POSTGRES_PORT: ${{ secrets.DATABASE_PORT }}
+      POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+      JWT_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITHM: ${{ secrets.ALGORITHM }}
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -43,6 +51,8 @@ jobs:
         run: make lint_isort
       - name: Lint isort
         run: make lint_pylint
+      - run: echo POSTGRES_USER
+      - run: echo POSTGRES_DB
       - name: Run Tests
         run: make tests
         env:
