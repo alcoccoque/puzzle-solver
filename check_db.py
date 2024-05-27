@@ -24,10 +24,9 @@ async def check_connection(database_url):
                 print("Connection successful")
 
     except Exception as e:
-        print(f"Connection failed: {e}")
+        raise e
         sys.exit(1)
 
 if __name__ == "__main__":
     database_url = sys.argv[1]
-    database_url = f"postgresql+asyncpg://{postgres_user}:{postgres_password}@test-{postgres_host}:{postgres_port}/{postgres_db}"
     asyncio.run(check_connection(database_url))
