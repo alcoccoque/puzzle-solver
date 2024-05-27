@@ -6,11 +6,11 @@ import os
 from dotenv import load_dotenv
 
 # Specify the path to the .env file
-# dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
-
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+print("env_path=", dotenv_path)
 # Load the environment variables from the .env file
-# load_dotenv(dotenv_path)
-load_dotenv()
+load_dotenv(dotenv_path)
+# load_dotenv()
 
 # Settings of project information.
 project_settings = {
