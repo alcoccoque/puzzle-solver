@@ -5,26 +5,25 @@ on:
     branches:
       - main
 
+env:
+  POSTGRES_USER: ${{ secrets.DATABASE_USERNAME }}
+  POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  POSTGRES_HOST: ${{ secrets.DATABASE_HOSTNAME }}
+  POSTGRES_PORT: ${{ secrets.DATABASE_PORT }}
+  POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+  JWT_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  ALGORITHM: ${{ secrets.ALGORITHM }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    env:
-      POSTGRES_USER: ${{ secrets.DATABASE_USERNAME }}
-      POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-      POSTGRES_HOST: ${{ secrets.DATABASE_HOSTNAME }}
-      POSTGRES_PORT: ${{ secrets.DATABASE_PORT }}
-      POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
-      JWT_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      ALGORITHM: ${{ secrets.ALGORITHM }}
-
     services:
       postgres:
         image: postgres
         env:
           POSTGRES_USER: test-user
-          POSTGRES_DB: test_db
           POSTGRES_PASSWORD: password
+          POSTGRES_DB: test_db
         ports:
           - 5432:5432
         options: >-
@@ -39,9 +38,6 @@ jobs:
         python-version: ["3.10"]
 
     steps:
-      - uses: actions/checkout@v3.3.0
-        with:
-          lfs: true
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
