@@ -9,15 +9,15 @@ venv:
 
 .PHONY: lint_black
 create_db:
-	black .
+	black --check .
 
 .PHONY: lint_isort
 create_db:
-	isort .
+	isort app/ --check
 
 .PHONY: lint_pylint
 create_db:
-	pylint ./app
+	pylint app/
 
 .PHONY: create_db
 create_db:
